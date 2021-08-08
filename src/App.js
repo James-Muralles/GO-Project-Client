@@ -4,6 +4,7 @@ import React from "react";
 import ChatHistory from './components/ChatHistory/ChatHistory';
 import Header from './components/Header/Header';
 import { useEffect, useRef } from 'react';
+import ChatInput from './components/ChatInput';
 
 
 
@@ -26,9 +27,11 @@ useEffect(() => {
 },)
 
 
-   const send = () => {
-        console.log("hello")
-        sendMsg("hello")
+   const send = (event) => {
+        if(event.keyCode === 13){
+          sendMsg(event.target.value);
+          event.target.value = "";
+        }
     
     }
 
@@ -36,6 +39,8 @@ useEffect(() => {
       <div className="App">
           <Header></Header>
           <ChatHistory chatHistory={chatHistory}></ChatHistory>
+          <ChatInput send={send}></ChatInput>
+
        <button onClick={send}>Hit</button>
       </div>
     );
